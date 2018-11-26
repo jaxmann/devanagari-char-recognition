@@ -9,6 +9,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import transforms
 from torch.autograd import Variable
+import torchvision
 from cifar10 import CIFAR10
 
 # You should implement these (softmax.py, twolayernn.py, convnet.py)
@@ -58,7 +59,7 @@ if args.cuda:
 # Load CIFAR10 using torch data paradigm
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 # CIFAR10 meta data
-n_classes = 10
+n_classes = 46
 im_size = (3, 32, 32)
 # Subtract the mean color and divide by standard deviation. The mean image
 # from part 1 of this homework was essentially a big gray blog, so
@@ -71,20 +72,40 @@ transform = transforms.Compose([
                  transforms.ToTensor(),
                  transforms.Normalize(cifar10_mean_color, cifar10_std_color),
             ])
+
+def load_dataset(data_path):
+    train_dataset = torchvision.datasets.ImageFolder(
+        root=data_path,
+        transform=torchvision.transforms.ToTensor()
+    )
+    train_loader = torch.utils.data.DataLoader(
+        train_dataset,
+        batch_size=64,
+        num_workers=0,
+        shuffle=True
+    )
+    return train_loader
+
+train_loader = load_dataset('data/train/')
+val_loader = load_dataset('data/train')
+test_loader =load_dataset('data/test')
+
 # Datasets
-train_dataset = CIFAR10(args.cifar10_dir, split='train', download=True,
-                        transform=transform)
-val_dataset = CIFAR10(args.cifar10_dir, split='val', download=True,
-                        transform=transform)
-test_dataset = CIFAR10(args.cifar10_dir, split='test', download=True,
-                        transform=transform)
+# train_dataset = CIFAR10(args.cifar10_dir, split='train', download=True,
+#                         transform=transform)
+# val_dataset = CIFAR10(args.cifar10_dir, split='val', download=True,
+#                         transform=transform)
+# test_dataset = CIFAR10(args.cifar10_dir, split='test', download=True,
+#                         transform=transform)
+
+
 # DataLoaders
-train_loader = torch.utils.data.DataLoader(train_dataset,
-                 batch_size=args.batch_size, shuffle=True, **kwargs)
-val_loader = torch.utils.data.DataLoader(val_dataset,
-                 batch_size=args.batch_size, shuffle=True, **kwargs)
-test_loader = torch.utils.data.DataLoader(test_dataset,
-                 batch_size=args.batch_size, shuffle=True, **kwargs)
+# train_loader = torch.utils.data.DataLoader(train_dataset,
+#                  batch_size=args.batch_size, shuffle=True, **kwargs)
+# val_loader = torch.utils.data.DataLoader(val_dataset,
+#                  batch_size=args.batch_size, shuffle=True, **kwargs)
+# test_loader = torch.utils.data.DataLoader(test_dataset,
+#                  batch_size=args.batch_size, shuffle=True, **kwargs)
 
 # Load the model
 if args.model == 'softmax':
@@ -195,4 +216,5 @@ evaluate('test', verbose=True)
 torch.save(model, args.model + '.pt')
 # Later you can call torch.load(file) to re-load the trained model into python
 # See http://pytorch.org/docs/master/notes/serialization.html for more details
+
 
