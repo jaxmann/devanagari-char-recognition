@@ -65,13 +65,13 @@ im_size = (3, 32, 32)
 # from part 1 of this homework was essentially a big gray blog, so
 # subtracting the same color for all pixels doesn't make much difference.
 # mean color of training images
-cifar10_mean_color = [0.49131522, 0.48209435, 0.44646862]
-# std dev of color across training images
-cifar10_std_color = [0.01897398, 0.03039277, 0.03872553]
-transform = transforms.Compose([
-                 transforms.ToTensor(),
-                 transforms.Normalize(cifar10_mean_color, cifar10_std_color),
-            ])
+# cifar10_mean_color = [0.49131522, 0.48209435, 0.44646862]
+# # std dev of color across training images
+# cifar10_std_color = [0.01897398, 0.03039277, 0.03872553]
+# transform = transforms.Compose([
+#                  transforms.ToTensor(),
+#                  transforms.Normalize(cifar10_mean_color, cifar10_std_color),
+#             ])
 
 def load_dataset(data_path):
     train_dataset = torchvision.datasets.ImageFolder(
@@ -80,7 +80,7 @@ def load_dataset(data_path):
     )
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
-        batch_size=64,
+        batch_size=args.batch_size,
         num_workers=0,
         shuffle=True
     )
