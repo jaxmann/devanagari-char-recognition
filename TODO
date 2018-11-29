@@ -1,0 +1,6 @@
+loss visualizations
+filter visualizations
+VGG11 (?) model
+transfer learning with pre-trained model (from CV) - AlexNet
+get it working on Google GPUs
+stats: accuracy, train time, time taken to reach baseline, hyperparameter tuning
