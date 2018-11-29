@@ -2,7 +2,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
-from sklearn.preprocessing import StandardScaler
+# from sklearn.preprocessing import StandardScaler
 import os.path as osp
 # import utils
 import torch.optim as optim
