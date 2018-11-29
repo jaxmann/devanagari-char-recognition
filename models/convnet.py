@@ -60,7 +60,7 @@ class CNN(nn.Module):
         x = F.relu(self.conv1(images))
         x = self.pool(x)
         # print(x.shape)
-        x = x.view(-1, self.hidden_size / self.kernel_size ** 2)
+        x = x.view(-1, int(self.hidden_size / self.kernel_size ** 2))
 
         scores = self.linear1(x)
 

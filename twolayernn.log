@@ -1,6 +1,20 @@
-Train Epoch: 1 [0/78200 (0%)]	Train Loss: 3.802177	Val Loss: 3.828219	Val Acc: 2
-Train Epoch: 1 [500/78200 (1%)]	Train Loss: 3.802268	Val Loss: 3.807844	Val Acc: 2
-Train Epoch: 1 [1000/78200 (1%)]	Train Loss: 3.839934	Val Loss: 3.817467	Val Acc: 2
-Train Epoch: 1 [1500/78200 (2%)]	Train Loss: 3.761094	Val Loss: 3.808976	Val Acc: 2
-Train Epoch: 1 [2000/78200 (3%)]	Train Loss: 3.821845	Val Loss: 3.798182	Val Acc: 4
-Train Epoch: 1 [2500/78200 (3%)]	Train Loss: 3.813399	Val Loss: 3.760313	Val Acc: 6
+TwoLayerNN(
+  (model): Sequential(
+    (0): Linear(in_features=150528, out_features=10, bias=True)
+    (1): ReLU()
+    (2): Linear(in_features=10, out_features=46, bias=True)
+  )
+)
+Train Epoch: 1 [0/78200 (0%)]	Train Loss: 3.906106	Val Loss: 4.035450	Val Acc: 4
+Train Epoch: 1 [500/78200 (1%)]	Train Loss: 3.774957	Val Loss: 3.800685	Val Acc: 4
+Train Epoch: 1 [1000/78200 (1%)]	Train Loss: 3.764676	Val Loss: 3.791446	Val Acc: 2
+Train Epoch: 1 [1500/78200 (2%)]	Train Loss: 3.859880	Val Loss: 3.780513	Val Acc: 5
+Train Epoch: 1 [2000/78200 (3%)]	Train Loss: 3.786109	Val Loss: 3.815612	Val Acc: 3
+Train Epoch: 1 [2500/78200 (3%)]	Train Loss: 3.717278	Val Loss: 3.698268	Val Acc: 7
+Train Epoch: 1 [3000/78200 (4%)]	Train Loss: 3.805038	Val Loss: 3.755788	Val Acc: 7
+Train Epoch: 1 [3500/78200 (4%)]	Train Loss: 3.847979	Val Loss: 3.767420	Val Acc: 5
+Train Epoch: 1 [4000/78200 (5%)]	Train Loss: 3.722126	Val Loss: 3.791449	Val Acc: 3
+Train Epoch: 1 [4500/78200 (6%)]	Train Loss: 3.695525	Val Loss: 3.748480	Val Acc: 4
+Train Epoch: 1 [5000/78200 (6%)]	Train Loss: 3.768014	Val Loss: 3.750135	Val Acc: 7
+Train Epoch: 1 [5500/78200 (7%)]	Train Loss: 3.731612	Val Loss: 3.734040	Val Acc: 5
+Train Epoch: 1 [6000/78200 (8%)]	Train Loss: 3.675669	Val Loss: 3.758935	Val Acc: 4
