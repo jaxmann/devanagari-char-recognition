@@ -82,3 +82,5 @@ ResNet(
   (avgpool): AvgPool2d(kernel_size=7, stride=1, padding=0)
   (fc): Linear(in_features=512, out_features=46, bias=True)
 )
+Epoch 0/24
+----------
