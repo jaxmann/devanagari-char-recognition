@@ -22,6 +22,7 @@ import models.twolayernn
 import models.convnet
 import models.mymodel
 import models.SimpleNet
+import scipy
 
 import torchvision.models as m
 
