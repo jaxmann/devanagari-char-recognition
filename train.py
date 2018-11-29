@@ -128,10 +128,10 @@ elif args.model == 'mymodel':
     model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
-    # model = models.SimpleNet.create_part2_model(alexnet(pretrained=True), n_classes)
-    model = m.resnet18(pretrained=True)
-    num_ftrs = model.fc.in_features
-    model.fc = nn.Linear(num_ftrs, n_classes)
+    model = models.SimpleNet.create_part2_model(m.alexnet(pretrained=True), n_classes)
+    # model = m.resnet18(pretrained=True)
+    # num_ftrs = model.fc.in_features
+    # model.fc = nn.Linear(num_ftrs, n_classes)
 else:
     raise Exception('Unknown model {}'.format(args.model))
 # cross-entropy loss function
