@@ -23,6 +23,8 @@ import models.convnet
 import models.mymodel
 import models.SimpleNet
 
+import torchvision.models as m
+
 # Training settings
 parser = argparse.ArgumentParser(description='CIFAR-10 Example')
 # Hyperparameters
@@ -126,7 +128,10 @@ elif args.model == 'mymodel':
     model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
-    model = models.SimpleNet.create_part2_model(alexnet(pretrained=True), n_classes)
+    # model = models.SimpleNet.create_part2_model(alexnet(pretrained=True), n_classes)
+    model = m.resnet18(pretrained=True)
+    num_ftrs = model.fc.in_features
+    model.fc = nn.Linear(num_ftrs, n_classes)
 else:
     raise Exception('Unknown model {}'.format(args.model))
 # cross-entropy loss function
@@ -141,20 +146,20 @@ if args.cuda:
 
 optimizer = torch.optim.Adam(model.parameters(), lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
 print(model)
-if args.model == 'SimpleNet':
-
-    print(model)
-    params_to_optimize = []
-    backprop_depth = 1
-    # List of modules in the network
-    mods = list(model.features.children()) + list(model.classifier.children())
-
-    # Extract parameters from the last `backprop_depth` modules in the network and collect them in
-    # the params_to_optimize list.
-    for m in mods[::-1][:backprop_depth]:
-        params_to_optimize.extend(list(m.parameters()))
-
-    optimizer = torch.optim.Adam(params=params_to_optimize, lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
+# if args.model == 'SimpleNet':
+#
+#     print(model)
+#     params_to_optimize = []
+#     backprop_depth = 1
+#     # List of modules in the network
+#     mods = list(model.features.children()) + list(model.classifier.children())
+#
+#     # Extract parameters from the last `backprop_depth` modules in the network and collect them in
+#     # the params_to_optimize list.
+#     for m in mods[::-1][:backprop_depth]:
+#         params_to_optimize.extend(list(m.parameters()))
+#
+#     optimizer = torch.optim.Adam(params=params_to_optimize, lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
 
 
 
