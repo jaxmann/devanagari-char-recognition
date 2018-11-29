@@ -10,6 +10,10 @@ import torch.optim as optim
 from torchvision import transforms
 from torch.autograd import Variable
 import torchvision
+from torchvision.models import alexnet
+from torchvision.models import vgg16
+import torchvision.models
+
 from cifar10 import CIFAR10
 
 # You should implement these (softmax.py, twolayernn.py, convnet.py)
@@ -17,6 +21,7 @@ import models.softmax
 import models.twolayernn
 import models.convnet
 import models.mymodel
+import models.SimpleNet
 
 # Training settings
 parser = argparse.ArgumentParser(description='CIFAR-10 Example')
@@ -32,7 +37,7 @@ parser.add_argument('--batch-size', type=int, metavar='N',
 parser.add_argument('--epochs', type=int, metavar='N',
                     help='number of epochs to train')
 parser.add_argument('--model',
-                    choices=['softmax', 'convnet', 'twolayernn', 'mymodel'],
+                    choices=['softmax', 'convnet', 'twolayernn', 'mymodel', 'SimpleNet'],
                     help='which model to train/evaluate')
 parser.add_argument('--hidden-dim', type=int,
                     help='number of hidden features/activations')
@@ -60,7 +65,7 @@ if args.cuda:
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 # CIFAR10 meta data
 n_classes = 46
-im_size = (3, 32, 32)
+im_size = (3, 224, 224)
 # Subtract the mean color and divide by standard deviation. The mean image
 # from part 1 of this homework was essentially a big gray blog, so
 # subtracting the same color for all pixels doesn't make much difference.
@@ -74,9 +79,11 @@ im_size = (3, 32, 32)
 #             ])
 
 def load_dataset(data_path):
+    tforms = [torchvision.transforms.Resize(size=(224, 224)), torchvision.transforms.ToTensor()]
+    tf = transforms.Compose(tforms)
     train_dataset = torchvision.datasets.ImageFolder(
         root=data_path,
-        transform=torchvision.transforms.ToTensor()
+        transform=tf
     )
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
@@ -117,6 +124,9 @@ elif args.model == 'convnet':
                                n_classes)
 elif args.model == 'mymodel':
     model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
+elif args.model == 'SimpleNet':
+    # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
+    model = models.SimpleNet.create_part2_model(alexnet(pretrained=True), n_classes)
 else:
     raise Exception('Unknown model {}'.format(args.model))
 # cross-entropy loss function
@@ -130,6 +140,23 @@ if args.cuda:
 #############################################################################
 
 optimizer = torch.optim.Adam(model.parameters(), lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
+print(model)
+if args.model == 'SimpleNet':
+
+    print(model)
+    params_to_optimize = []
+    backprop_depth = 1
+    # List of modules in the network
+    mods = list(model.features.children()) + list(model.classifier.children())
+
+    # Extract parameters from the last `backprop_depth` modules in the network and collect them in
+    # the params_to_optimize list.
+    for m in mods[::-1][:backprop_depth]:
+        params_to_optimize.extend(list(m.parameters()))
+
+    optimizer = torch.optim.Adam(params=params_to_optimize, lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
+
+
 
 #############################################################################
 #                             END OF YOUR CODE                              #

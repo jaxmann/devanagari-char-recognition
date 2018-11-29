@@ -1,1 +1,6 @@
-Train Epoch: 1 [0/78200 (0%)]	Train Loss: 3.890388	Val Loss: 3.850164	Val Acc: 1
+Softmax(
+  (model): Sequential(
+    (0): Linear(in_features=150528, out_features=46, bias=True)
+  )
+)
+Train Epoch: 1 [0/78200 (0%)]	Train Loss: 3.873207	Val Loss: 3.778763	Val Acc: 10
