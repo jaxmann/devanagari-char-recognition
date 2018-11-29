@@ -27,7 +27,7 @@ class CNN(nn.Module):
         self.hidden_size = hidden_dim * self.height_width ** 2  # Channels x Height x Width
 
         self.pool = nn.MaxPool2d(kernel_size=kernel_size)
-        self.linear1 = nn.Linear(self.hidden_size / kernel_size ** 2, n_classes)
+        self.linear1 = nn.Linear(int(self.hidden_size / kernel_size ** 2), n_classes)
 
         self.kernel_size = kernel_size
 
