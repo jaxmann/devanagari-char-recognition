@@ -156,7 +156,7 @@ else:
 criterion = F.cross_entropy
 if args.cuda:
     model.cuda()
-    criterion.cuda()
+    # criterion.cuda()
 
 #############################################################################
 # TODO: Initialize an optimizer from the torch.optim package using the
