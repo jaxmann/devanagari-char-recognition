@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class MyModel(nn.Module):
+class VGG19(nn.Module):
     def __init__(self, im_size, hidden_dim, kernel_size, n_classes):
         '''
         Extra credit model
@@ -15,7 +15,7 @@ class MyModel(nn.Module):
             kernel_size (int): Width and height of (square) convolution filters
             n_classes (int): Number of classes to score
         '''
-        super(MyModel, self).__init__()
+        super(VGG19, self).__init__()
         #############################################################################
         # TODO: Initialize anything you need for the forward pass
         #############################################################################
@@ -27,15 +27,31 @@ class MyModel(nn.Module):
             nn.BatchNorm2d(64),
             nn.ReLU(inplace=True),
 
+            nn.Conv2d(64, 64, kernel_size=3, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True),
+
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
 
+            nn.Conv2d(128, 128, kernel_size=3, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True),
+
             nn.MaxPool2d(kernel_size=2, stride=2),
 
             nn.Conv2d(128, 256, kernel_size=3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(256, 256, kernel_size=3, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(256, 256, kernel_size=3, padding=1),
             nn.BatchNorm2d(256),
             nn.ReLU(inplace=True),
 
@@ -53,14 +69,38 @@ class MyModel(nn.Module):
             nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
 
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
             nn.MaxPool2d(kernel_size=2, stride=2),
 
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(512, 512, kernel_size=3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+
             #changed final average pooling size for simpler linear layer
-            nn.AvgPool2d(kernel_size=2, stride=1)
+            nn.AvgPool2d(kernel_size=2, stride=2)
 
         )
 
-        self.linear = nn.Linear(1024, n_classes)
+        self.linear = nn.Linear(512, n_classes)
 
         # self.n_classes = n_classes
         #

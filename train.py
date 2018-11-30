@@ -27,6 +27,8 @@ import models.twolayernn
 import models.convnet
 import models.mymodel
 import models.SimpleNet
+import models.vgg
+import models.vgg19
 import scipy
 
 import torchvision.models as m
@@ -140,9 +142,10 @@ if args.model == 'softmax':
 elif args.model == 'twolayernn':
     model = models.twolayernn.TwoLayerNN(im_size, args.hidden_dim, n_classes)
 elif args.model == 'convnet':
-    model = models.convnet.CNN(im_size, args.hidden_dim, args.kernel_size,n_classes)
+    model = models.convnet.CNN(im_size, args.hidden_dim, args.kernel_size, n_classes)
 elif args.model == 'mymodel':
-    model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
+    model = models.vgg19.VGG19(im_size, args.hidden_dim, args.kernel_size, n_classes)
+    # model = models.vgg.vgg11('vgg11')
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
     model = models.SimpleNet.create_part2_model(m.alexnet(pretrained=True), n_classes)

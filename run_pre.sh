@@ -8,7 +8,7 @@ python -u train.py \
     --model SimpleNet \
     --kernel-size 3 \
     --hidden-dim 50 \
-    --epochs 2 \
+    --epochs 6 \
     --weight-decay 0.0005 \
     --momentum 0.9 \
     --batch-size 512 \
