@@ -73,7 +73,7 @@ if args.cuda:
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 # CIFAR10 meta data
 n_classes = 46
-im_size = (3, 224, 224)
+im_size = (3, 32, 32)
 # Subtract the mean color and divide by standard deviation. The mean image
 # from part 1 of this homework was essentially a big gray blog, so
 # subtracting the same color for all pixels doesn't make much difference.
@@ -87,7 +87,7 @@ im_size = (3, 224, 224)
 #             ])
 
 def load_dataset(data_path):
-    tforms = [torchvision.transforms.Resize(size=(224, 224)), torchvision.transforms.ToTensor()]
+    tforms = [torchvision.transforms.Resize(size=(32, 32)), torchvision.transforms.ToTensor()]
     tf = transforms.Compose(tforms)
     train_dataset = torchvision.datasets.ImageFolder(
         root=data_path,
@@ -140,8 +140,7 @@ if args.model == 'softmax':
 elif args.model == 'twolayernn':
     model = models.twolayernn.TwoLayerNN(im_size, args.hidden_dim, n_classes)
 elif args.model == 'convnet':
-    model = models.convnet.CNN(im_size, args.hidden_dim, args.kernel_size,
-                               n_classes)
+    model = models.convnet.CNN(im_size, args.hidden_dim, args.kernel_size,n_classes)
 elif args.model == 'mymodel':
     model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
 elif args.model == 'SimpleNet':

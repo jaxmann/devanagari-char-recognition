@@ -22,9 +22,9 @@ class TwoLayerNN(nn.Module):
         #############################################################################
 
         self.model = nn.Sequential(
-            nn.Linear(im_size[0] * im_size[1] * im_size[2], 10), #hidden
+            nn.Linear(im_size[0] * im_size[1] * im_size[2], hidden_dim), #hidden
             nn.ReLU(),
-            nn.Linear(10, n_classes)
+            nn.Linear(hidden_dim, n_classes)
         )
 
         #############################################################################
