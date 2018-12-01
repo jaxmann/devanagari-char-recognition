@@ -37,7 +37,7 @@ class MyModel(nn.Module):
         layers += [nn.MaxPool2d(kernel_size=2, stride=2)]
         layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
         self.vgg11 = nn.Sequential(*layers)
-        self.sm = nn.Linear(512,10)
+        self.sm = nn.Linear(512,n_classes)
 #         print(layers)
         #############################################################################
         #                             END OF YOUR CODE                              #
