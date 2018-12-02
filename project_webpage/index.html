@@ -30,19 +30,16 @@ color: #FF9900;
 <div class="page-header">
 
 <!-- Title and Name --> 
-<h1>Your Title Here</h1> 
-<span style="font-size: 20px; line-height: 1.5em;"><strong>Your Name(s) Here</strong></span><br>
+<h1>Devanagari Character Recognition</h1> 
+<span style="font-size: 20px; line-height: 1.5em;"><strong>Jonathan Axmann, Chris Collins, Mihir Shrirang Joshi</strong></span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Fall 2018 CS 4803 / 7643 Deep Learning: Class Project</span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
 <hr>
 
-This webpage template is based on a similar template from Dr. Devi Parikh's
-<a href="https://samyak-268.github.io/F18CS4476/">Intro to Computer Vision course</a>.
-
 <!-- Goal -->
 <h2>Abstract</h2>
 
-One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.
+We attempt to perform image classification on the Devanagari character set. For an input of handwritten Devanagari symbols, our model will output the category label (character name) of each character. We will use a variety of models, including a small fully-connected net with two layers, a simple convolutional net with one convlutional layer, and more complex models, as well as pretrained-models, and compare performance. 
 <br><br>
 <!-- figure -->
 <h2>Teaser figure</h2>
@@ -57,22 +54,44 @@ A figure that conveys the main idea behind the project or the main application b
 <!-- Introduction -->
 <h2>Introduction / Background / Motivation</h2>
 <h4>What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</h4>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Initially, our project aimed to solve the problem of classifying Devanagari script. 
+<br><br>
+Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. 
+<br><br>
+Our training dataset contains 200 examples of each character, for a total of 92,000 images. Each image consists of 32x32 pixels, and 3 color channels. 
+
 
 <h4>How is it done today, and what are the limits of current practice?</h4>
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Current attempts to classify Devanagari script are outlined here:
+
+<ul>
+
+<li><a>https://towardsdatascience.com/devanagari-script-character-recognition-using-machine-learning-6006b40fa6a9</a>
+<br>
+This project uses Random Forests (but not deep learning) to classify handwritten Devanagari script. It achieves a maximum accuracy score of 92%. 
+
+<li><a>https://www.hindawi.com/journals/cin/2018/6747098/</a>
+<br>
+This project uses VGG, ResNet, DenseNet, and others to achieve 98% accuracy on the given data set. 
+
+</ul>
+We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
+
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+The goal of our project is to achieve comparable accuracy to the models used in the paper above, but using a simpler model. Ideally, simply tuning hyperparameters and using smart design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train on. The paper above trains each model on 250 epochs to achieve a best-accuracy of 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. 
+
 
 <br><br>
 <!-- Approach -->
 <h2>Approach</h2>
 <h4>What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</h4>
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+We tried a variety of models, including a simple two-layer fully-connected net, a simple convolutional net, a modified variant of VGG11 (using different input sizes and additional max-pooling layers), a pre-trained AlexNet, a fully-trained VGG11, and more. Our approach was to first use simple models to make sure the data was formatted correctly and that our approach would work at all, as a sanity check. 
+
 
 <h4>What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</h4>
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+One problem that we faced was having to change the input sizes to some of the pre-trained networks. VGG11, for instance, takes a 224x224x3 image as input, and our images are only 32x32. It's possible to work around this problem by simply resizing the images for the pre-trained models. For fully-trained VGG11, however, it is not feasible to use 224x224x3 images since the memory usage is extremely high. For this reason, we created a VGG11-variant that accepted 32x32x3 input images and still achieved high accuracy. 
+
 
 <br><br>
 <!-- Results -->
@@ -84,13 +103,106 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed 
 
 <!-- Main Results Figure --> 
 <div style="text-align: center;">
-<img style="height: 300px;" alt="" src="images/results.png">
+
+
+FC with Softmax Classifier
+<table border=1>
+<tr>
+<td>
+<img src="images/softmax_lossvstrain.png" width="49%"/>
+<img src="images/softmax_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+
+<div>
+<img src="images/softmax_filt.png" />
+<p style="font-size: 14px">Poor recall for ktop=15</p>
+</div>
+
+Two layer FC
+<table border=1>
+<tr>
+<td>
+<img src="images/twolayernn_lossvstrain.png" width="49%"/>
+<img src="images/twolayernn_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+<div>
+<img src="images/twolayernn32d.png" />
+<p style="font-size: 14px">Poor recall for ktop=15</p>
+</div>
+
+Single convolutional layer with 224x224x3 input images
+<table border=1>
+<tr>
+<td>
+<img src="images/convnet224d_80_lossvstrain.png" width="49%"/>
+<img src="images/convnet224d_80_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+
+Single convolutional layer with 32x32x3 input images
+<table border=1>
+<tr>
+<td>
+<img src="images/convnet32d_88_lossvstrain.png" width="49%"/>
+<img src="images/convnet32d_88_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+<div>
+<img src="images/convnet32d.png" />
+<p style="font-size: 14px">Poor recall for ktop=15</p>
+</div>
+
+Pre-trained alexnet
+<table border=1>
+<tr>
+<td>
+<img src="images/alexnet_lossvstrain.png" width="49%"/>
+<img src="images/alexnet_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+Fully-trained VGG11 with 32x32x3 input images over 10 epochs
+<table border=1>
+<tr>
+<td>
+<img src="images/vgg11_10ep_var_lossvstrain.png" width="49%"/>
+<img src="images/vgg11_10ep_var_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+<div>
+<img src="images/vgg11_10ep_var.png" />
+<p style="font-size: 14px">Poor recall for ktop=15</p>
+</div>
+
+Fully-trained VGG11 with 32x32x3 input images over 15 epochs
+<table border=1>
+<tr>
+<td>
+<img src="images/vgg11_15ep_var_lossvstrain.png" width="49%"/>
+<img src="images/vgg11_15ep_var_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
 </div>
 <br><br>
 
   <hr>
   <footer> 
-  <p>© You Name(s) Here</p>
+  <p>© Jonathan Axmann, Chris Collins, Mihir Shrirang Joshi</p>
   </footer>
 </div>
 </div>
