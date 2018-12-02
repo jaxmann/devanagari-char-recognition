@@ -60,7 +60,7 @@ class MyModel(nn.Module):
 
         )
 
-        self.linear = nn.Linear(1024, n_classes)
+        self.linear = nn.Linear(512, n_classes)
 
         # self.n_classes = n_classes
         #

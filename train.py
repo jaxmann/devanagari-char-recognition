@@ -146,7 +146,7 @@ elif args.model == 'convnet':
     model = models.convnet.CNN(im_size, args.hidden_dim, args.kernel_size, n_classes)
 elif args.model == 'mymodel':
     # model = models.vgg19.VGG19(im_size, args.hidden_dim, args.kernel_size, n_classes)
-    model = models.vgg13.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
+    model = models.mymodel.MyModel(im_size, args.hidden_dim, args.kernel_size, n_classes)
     # model = models.vgg.vgg11('vgg11')
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
