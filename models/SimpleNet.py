@@ -314,6 +314,8 @@ def create_model(model, num_classes):
     if fc.bias is not None:
         # Initializing biases with zeros.
         nn.init.constant_(fc.bias.data, 0)
+    
+    new_classifier[-1] = fc
 
     fc_prev = nn.Linear(4096, 4096)
 
