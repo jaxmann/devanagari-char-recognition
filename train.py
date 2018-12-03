@@ -76,7 +76,7 @@ if args.cuda:
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 # CIFAR10 meta data
 n_classes = 46
-im_size = (3, 32, 32)
+im_size = (3, 224, 224)
 # Subtract the mean color and divide by standard deviation. The mean image
 # from part 1 of this homework was essentially a big gray blog, so
 # subtracting the same color for all pixels doesn't make much difference.
@@ -90,7 +90,7 @@ im_size = (3, 32, 32)
 #             ])
 
 def load_dataset(data_path):
-    tforms = [torchvision.transforms.Resize(size=(32, 32)), torchvision.transforms.ToTensor()]
+    tforms = [torchvision.transforms.Resize(size=(224, 224)), torchvision.transforms.ToTensor()]
     tf = transforms.Compose(tforms)
     train_dataset = torchvision.datasets.ImageFolder(
         root=data_path,
@@ -150,7 +150,7 @@ elif args.model == 'mymodel':
     # model = models.vgg.vgg11('vgg11')
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
-    model = models.SimpleNet.create_part2_model(m.alexnet(pretrained=True), n_classes)
+    model = models.SimpleNet.create_model(m.alexnet(pretrained=True), n_classes)
     #model = m.resnet18(pretrained=True)
     #num_ftrs = model.fc.in_features
     #model.fc = nn.Linear(num_ftrs, n_classes)
@@ -184,7 +184,7 @@ if args.model == 'SimpleNet':
 
     print(model)
     params_to_optimize = []
-    backprop_depth = 3
+    backprop_depth = 5
     # List of modules in the network
     mods = list(model.features.children()) + list(model.classifier.children())
 

@@ -248,36 +248,36 @@ class SimpleNet(nn.Module):
         return x.squeeze()
 
 
-def custom_part1_trainer(model):
-    # return a dict that contains your customized learning settings.
+# def custom_part1_trainer(model):
+#     # return a dict that contains your customized learning settings.
+#
+#     input_size = (64, 64)
+#     RGB = False
+#     base_lr = 5e-4  # may try a smaller lr if not using batch norm
+#     weight_decay = 5e-4
+#     momentum = 0.9
+#
+#     opt = optim.SGD(params=model.parameters(), lr=base_lr, weight_decay=weight_decay, momentum=momentum)
+#     d = {
+#         # Create the loss function.
+#         # see http://pytorch.org/docs/0.3.0/nn.html#loss-functions for a list of available loss functions
+#         'loss_function': nn.CrossEntropyLoss(),
+#
+#         # Create the optimizer and a learning rate scheduler.
+#         'optimizer': opt,
+#         # Currently a simple step scheduler, but you can get creative.
+#         # See http://pytorch.org/docs/0.3.0/optim.html#how-to-adjust-learning-rate for various LR schedulers
+#         # and how to use them
+#         'lr_scheduler': optim.lr_scheduler.StepLR(opt, step_size=60, gamma=0.1),
+#
+#         'params': {'n_epochs': 50, 'batch_size': 50, 'experiment': 'part1'}
+#
+#     }
+#     print(d)
+#     return d
 
-    input_size = (64, 64)
-    RGB = False
-    base_lr = 5e-4  # may try a smaller lr if not using batch norm
-    weight_decay = 5e-4
-    momentum = 0.9
 
-    opt = optim.SGD(params=model.parameters(), lr=base_lr, weight_decay=weight_decay, momentum=momentum)
-    d = {
-        # Create the loss function.
-        # see http://pytorch.org/docs/0.3.0/nn.html#loss-functions for a list of available loss functions
-        'loss_function': nn.CrossEntropyLoss(),
-
-        # Create the optimizer and a learning rate scheduler.
-        'optimizer': opt,
-        # Currently a simple step scheduler, but you can get creative.
-        # See http://pytorch.org/docs/0.3.0/optim.html#how-to-adjust-learning-rate for various LR schedulers
-        # and how to use them
-        'lr_scheduler': optim.lr_scheduler.StepLR(opt, step_size=60, gamma=0.1),
-
-        'params': {'n_epochs': 50, 'batch_size': 50, 'experiment': 'part1'}
-
-    }
-    print(d)
-    return d
-
-
-def create_part2_model(model, num_classes):
+def create_model(model, num_classes):
     """
     Take the passed in model and prepare it for finetuning by following the
     instructions.
@@ -315,7 +315,15 @@ def create_part2_model(model, num_classes):
         # Initializing biases with zeros.
         nn.init.constant_(fc.bias.data, 0)
 
-    new_classifier[-1] = fc
+    fc_prev = nn.Linear(4096, 4096)
+
+    fc_prev.weight.data.normal_(0, 1)
+    fc_prev.weight.data.mul_(1e-2)
+    if fc_prev.bias is not None:
+        # Initializing biases with zeros.
+        nn.init.constant_(fc_prev.bias.data, 0)
+
+    new_classifier[-2] = fc_prev
 
     # print(model)
     # # Freeze training for all layers
@@ -337,42 +345,42 @@ def create_part2_model(model, num_classes):
     return model
 
 
-def custom_part2_trainer(model):
-    # return a dict that contains your customized learning settings.
-
-    input_size = (224, 224)
-    RGB = True
-    base_lr = 5e-4
-    weight_decay = 5e-4
-    momentum = 0.9
-    backprop_depth = 3
-
-    mods = list(model.features.children()) + list(model.classifier.children())
-
-    # Extract parameters from the last `backprop_depth` modules in the network and collect them in
-    # the params_to_optimize list.
-
-    params_to_optimize = []
-    for m in mods[::-1][:backprop_depth]:
-        params_to_optimize.extend(list(m.parameters()))
-
-    # Construct the optimizer
-    opt = optim.SGD(params=params_to_optimize, lr=base_lr, weight_decay=weight_decay, momentum=momentum)
-
-    d = {
-        # Create the loss function.
-        # see http://pytorch.org/docs/0.3.0/nn.html#loss-functions for a list of available loss functions
-        'loss_function': nn.CrossEntropyLoss(),
-
-        # Create the optimizer and a learning rate scheduler.
-        'optimizer': opt,
-        # Currently a simple step scheduler, but you can get creative.
-        # See http://pytorch.org/docs/0.3.0/optim.html#how-to-adjust-learning-rate for various LR schedulers
-        # and how to use them
-        'lr_scheduler': optim.lr_scheduler.StepLR(opt, step_size=10, gamma=0.1),
-
-        'params': {'n_epochs': 2, 'batch_size': 10, 'experiment': 'part2'}
-
-    }
-    print(d)
-    return d
+# def custom_part2_trainer(model):
+#     # return a dict that contains your customized learning settings.
+#
+#     input_size = (224, 224)
+#     RGB = True
+#     base_lr = 5e-4
+#     weight_decay = 5e-4
+#     momentum = 0.9
+#     backprop_depth = 3
+#
+#     mods = list(model.features.children()) + list(model.classifier.children())
+#
+#     # Extract parameters from the last `backprop_depth` modules in the network and collect them in
+#     # the params_to_optimize list.
+#
+#     params_to_optimize = []
+#     for m in mods[::-1][:backprop_depth]:
+#         params_to_optimize.extend(list(m.parameters()))
+#
+#     # Construct the optimizer
+#     opt = optim.SGD(params=params_to_optimize, lr=base_lr, weight_decay=weight_decay, momentum=momentum)
+#
+#     d = {
+#         # Create the loss function.
+#         # see http://pytorch.org/docs/0.3.0/nn.html#loss-functions for a list of available loss functions
+#         'loss_function': nn.CrossEntropyLoss(),
+#
+#         # Create the optimizer and a learning rate scheduler.
+#         'optimizer': opt,
+#         # Currently a simple step scheduler, but you can get creative.
+#         # See http://pytorch.org/docs/0.3.0/optim.html#how-to-adjust-learning-rate for various LR schedulers
+#         # and how to use them
+#         'lr_scheduler': optim.lr_scheduler.StepLR(opt, step_size=10, gamma=0.1),
+#
+#         'params': {'n_epochs': 2, 'batch_size': 10, 'experiment': 'part2'}
+#
+#     }
+#     print(d)
+#     return d
