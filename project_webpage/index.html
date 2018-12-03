@@ -72,14 +72,14 @@ This project uses Random Forests (but not deep learning) to classify handwritten
 
 <li><a>https://www.hindawi.com/journals/cin/2018/6747098/</a>
 <br>
-This project uses VGG, ResNet, DenseNet, and others to achieve 98% accuracy on the given data set. 
+This project compares VGG, ResNet, DenseNet, and others to achieve a maximal accuracy of 98% on the given data set. 
 
 </ul>
 We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-The goal of our project is to achieve comparable accuracy to the models used in the paper above, but using a simpler model. Ideally, simply tuning hyperparameters and using smart design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train on. The paper above trains each model on 250 epochs to achieve a best-accuracy of 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. 
+The goal of our project is to achieve comparable accuracy to the models used in the paper above, but using a simpler model. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train on. The paper above trains each model on 250 epochs to achieve a best-accuracy of 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. 
 
 
 <br><br>
@@ -97,15 +97,19 @@ One problem that we faced was having to change the input sizes to some of the pr
 <!-- Results -->
 <h2>Experiments and Results</h2>
 <h4>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</h4>
-Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+
+We measured success by measuring how many of the test set images were correctly categorized into their respective bin out of all the bins. Random accuracy would be about 2.2% accuracy. There were 13800 total images in the test set and our best model correctly categorized 13506 of them with it's first guess. We chose not to use top5 accuracy because it does not make sense to allow to model to guess multiple times on character recognition - it's important to be correct on the first try. Regardless, accuracy is already so high top5 accuracy is likely 100% or close to it. 
+<br>
+<br>
+Our goal was to match the performance of the deep learning paper that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The first paper listed above uses only Random Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the paper above uses several models, notably ResNet, DenseNet, and others. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
 
 <br><br>
 
 <!-- Main Results Figure --> 
-<div style="text-align: center;">
+<!-- <div style="text-align: center;"> -->
 
+<h3>FC with Softmax Classifier</h3>
 
-FC with Softmax Classifier
 <table border=1>
 <tr>
 <td>
@@ -115,13 +119,15 @@ FC with Softmax Classifier
 </tr>
 </table>
 
-
-<div>
+<!-- <p style="font-size: 14px">Filter visualization for softmax classifier</p> -->
+<div  style="width:35%">
 <img src="images/softmax_filt.png" />
-<p style="font-size: 14px">Poor recall for ktop=15</p>
 </div>
 
-Two layer FC
+
+
+<h3>Two Layer FC</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -131,12 +137,16 @@ Two layer FC
 </tr>
 </table>
 
-<div>
+<div  style="width:35%">
 <img src="images/twolayernn32d.png" />
-<p style="font-size: 14px">Poor recall for ktop=15</p>
-</div>
+<!-- <p style="font-size: 14px">Filter visualization for two layer FC</p>
+ -->
+ </div>
 
-Single convolutional layer with 224x224x3 input images
+
+
+<h3>Single Conv Layer with 224x224x3 Input</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -147,7 +157,8 @@ Single convolutional layer with 224x224x3 input images
 </table>
 
 
-Single convolutional layer with 32x32x3 input images
+<h3>Single Conv Layer with 32x32x3 Input</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -157,12 +168,15 @@ Single convolutional layer with 32x32x3 input images
 </tr>
 </table>
 
-<div>
+<div  style="width:35%">
 <img src="images/convnet32d.png" />
-<p style="font-size: 14px">Poor recall for ktop=15</p>
-</div>
+<!-- <p style="font-size: 14px">Filter visualization for simple convolutional net with 32x32x3 input</p>
+ -->
+ </div>
 
-Pre-trained alexnet
+
+<h3>Pre-Trained AlexNet (last layer tuned)</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -172,7 +186,10 @@ Pre-trained alexnet
 </tr>
 </table>
 
-Fully-trained VGG11 with 32x32x3 input images over 10 epochs
+
+
+<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (10 epochs)</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -182,12 +199,16 @@ Fully-trained VGG11 with 32x32x3 input images over 10 epochs
 </tr>
 </table>
 
-<div>
+<div style="width:35%">
 <img src="images/vgg11_10ep_var.png" />
-<p style="font-size: 14px">Poor recall for ktop=15</p>
+<!-- <p style="font-size: 14px">Filter visualizations for variant of vgg11 with 32x32x3 input</p> -->
+
 </div>
 
-Fully-trained VGG11 with 32x32x3 input images over 15 epochs
+
+
+<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (15 epochs)</h3>
+
 <table border=1>
 <tr>
 <td>
@@ -199,13 +220,13 @@ Fully-trained VGG11 with 32x32x3 input images over 15 epochs
 
 </div>
 <br><br>
-
+  
   <hr>
   <footer> 
   <p>© Jonathan Axmann, Chris Collins, Mihir Shrirang Joshi</p>
   </footer>
 </div>
-</div>
+<!-- </div> -->
 
 <br><br>
 
