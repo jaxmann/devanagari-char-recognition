@@ -2,8 +2,6 @@
 <html lang="en"><head>  
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Deep Learning Class Project
-  | Georgia Tech | Fall 2018: CS 4803 / 7643</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
