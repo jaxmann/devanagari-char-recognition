@@ -29,7 +29,6 @@
 
 We attempt to perform image classification on the Devanagari character set. For an input of handwritten Devanagari symbols, our model will output the category label (character name) of each character. We will use a variety of models, including a small fully-connected net with two layers, a simple convolutional net with one convlutional layer, and more complex models, as well as pretrained-models, and compare performance. The goal of this project is to achieve a similar accuracy to the papers outlined below while using simpler models and fewer training epochs. 
 
-<br><br>
 <!-- Introduction -->
 <h2>Introduction</h2>
 <h4>What did you try to do? What problem did you try to solve?</h4>
@@ -62,8 +61,6 @@ Devanagari is an Indic script used in India and Nepal, and our dataset contains 
 </td>
 </tr>
 </table>
-
-
 
 <br>
 Our training dataset contains 2000 examples of each character, for a total of 92,000 images. Each image consists of 32x32 pixels, and 3 color channels. The test set consists of 13800 total images (300 for each character) and the training set consists of 78200 images (1700 per character). This accounts for an 85/15 split. 
