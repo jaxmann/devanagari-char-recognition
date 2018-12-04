@@ -44,7 +44,7 @@ color: #FF9900;
 <!-- Goal -->
 <h2>Abstract</h2>
 
-We attempt to perform image classification on the Devanagari character set. For an input of handwritten Devanagari symbols, our model will output the category label (character name) of each character. We will use a variety of models, including a small fully-connected net with two layers, a simple convolutional net with one convlutional layer, and more complex models, as well as pretrained-models, and compare performance. The goal of this project is to achieve a similar accuracy to the papers outlined below while using simpler models and fewer training epochs. 
+We attempt to perform image classification on the Devanagari character set. For an input of handwritten Devanagari symbols, our model will output the category label (character name) of each character. We will use a variety of models, including a small fully-connected net with two layers, a simple convolutional net with one convolutional layer, and more complex models, as well as pretrained-models, and compare performance. The goal of this project is to achieve a similar accuracy to the papers outlined below while using simpler models and fewer training epochs. 
 <br><br>
 <!-- figure -->
 <br><br>
@@ -61,7 +61,7 @@ We attempt to perform image classification on the Devanagari character set. For 
 <h4>What did you try to do? What problem did you try to solve?</h4>
 Our project aimed to solve the problem of classifying Devanagari script. 
 <br><br>
-Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. Below are some examples of input used for this project. These are handwritten symbols from the training dataset used to train our model. Since these are handwritten characters, some amount of error can be attributed to sloppy or perhaps illegible writing - it might not be possible for even a human subject-matter expect to achieve 100% accuracy. 
+Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. Below are some examples of input used for this project. These are handwritten symbols from the training dataset used to train our model. Since these are handwritten characters, some amount of error can be attributed to sloppy or perhaps illegible writing - it might not be possible for even a human subject-matter expert to achieve 100% accuracy. 
 
 
 <br><br>
@@ -98,7 +98,7 @@ Our training dataset contains 2000 examples of each character, for a total of 92
 
 <br><br>
 
-Even in typed Devanagari fonts, characters could easily be confused with each other. We shall use the Noto Sans Devanagari font to demonstrate this. Note that each of the following are different characters, although they apppear quite similar in groups of two - this is the problem that our model will attempt to resolve. Most notably, 'bha' and 'ma' in the Devanagari script are distinguished by a tiny little loop at the top left of the 'bh' character. This is complicated by the diacritics in Devanagari- dots placed to the right or to the bottom of the main character. Handwritten characters only serve to further increase the difficulty of classification.
+
 
 <br><br>
 
@@ -123,11 +123,11 @@ This project compares accuracy of VGG (97.6%), ResNet (97.3%), DenseNet (98.3%),
 </ul>
 We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
 
-The dataset itself consists of pre processsed images. These images were pre processed as follows: First, the images were resized to 28x28. Next, they were converted to grey scale. Then, the intensity was inverted- rather than black characters on a white background, the images had white characters on a black background. Finally, the images were padded by 2 pixels on all sides, which made the final size 32x32.
+The dataset itself consists of pre processsed images. These images were pre processed as follows: First, the images were resized to 28x28. Then the intensity was inverted- rather than black characters on a white background, the images had white characters on a black background. Finally, the images were padded by 2 pixels on all sides, which made the final size 32x32.
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. This is especially relevant to ancient Sanskrit literature and historical manuscripts. Moreover, languages using Devanagari scripts are spoken by more than 500 million people in the world, making it one of the most popular scripts. An attempt to adapt state of the art techniques for Latin character recognition to Devanagari wil be especially useful to those people.
+Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. This is especially relevant to ancient Sanskrit literature and historical manuscripts. Moreover, languages using Devanagari scripts are spoken by more than 500 million people in the world, making it one of the most popular scripts. An attempt to adapt state of the art techniques for Latin character recognition to Devanagari will be especially useful to those people.
 
 <br><br>
 <!-- Approach -->
@@ -135,11 +135,11 @@ Character recognition (for any language) is important to transcribe written text
 <h4>What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</h4>
 The goal of our project is to achieve comparable accuracy to the models used in the Alom et al. paper above, but using a simpler model and fewer training epochs. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train with. The paper above trains each model on 250 epochs to achieve a maximal accuracy of approximately 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. The best VGG-accuracy the paper achieves is 97.6%. 
 <br><br>
-We tried a variety of models, including a simple two-layer fully-connected net, a simple convolutional net, variants of VGG11 (using different input sizes and additional max-pooling layers), and several pre-trained AlexNets. Our approach was to first use simple models to make sure the data was formatted correctly and that our approach would work at all, as a sanity check, and then move on to more complex models. The novelty of our approach is that we will use significantly fewer training epochs compared to the standard number of 250 in the Alom et al. paper - we expect this will relatively successful given the marginal rate of returns for each successful epoch (i.e. the loss and accuracy curves level off after a certain number of training epochs). 
+We tried a variety of models, including a simple two-layer fully-connected net, a simple convolutional net, variants of VGG11 (using different input sizes and additional max-pooling layers), and several pre-trained AlexNets. Our approach was to first use simple models to make sure the data was formatted correctly and that our approach would work at all, as a sanity check, and then move on to more complex models. The novelty of our approach is that we will use significantly fewer training epochs compared to the standard number of 250 in the Alom et al. paper - we expect this will be relatively successful given the marginal rate of returns for each successive epoch (i.e. the loss and accuracy curves level off after a certain number of training epochs). 
 
 
 <h4>What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</h4>
-One problem that we faced was having to change the input sizes to some of the pre-trained networks. VGG11, for instance, takes a 224x224x3 image as input, and our images are 32x32x3. It's possible to work around this problem by simply resizing the images for the pre-trained models. For fully-trained VGG11, however, it is not feasible to use 224x224x3 images since the memory usage is extremely high. For this reason, we created a VGG11-variant that accepted 32x32x3 input images and still achieved high accuracy. 
+One problem that we faced was having to change the input sizes to some of the pre-trained networks. VGG11, for instance, takes a 224x224x3 image as input, and our images are 32x32x3. It's possible to work around this problem by simply resizing the images for the pre-trained models. For fully-trained VGG11, however, it is not feasible to use 224x224x3 images since the memory usage is extremely high (ran out of memory on 104 GB instance). For this reason, we created a VGG11-variant that accepted 32x32x3 input images and still achieved high accuracy. 
 
 <br><br>
 <!-- Results -->
@@ -149,7 +149,7 @@ One problem that we faced was having to change the input sizes to some of the pr
 We measured success by measuring how many of the test set images were correctly categorized into their respective category bin out of all the categories. Random accuracy would be about 2.2% accuracy (1 out of 46). There were 13800 total images in the test set and our best model correctly categorized 13556 of them with its first guess. We chose not to use top5 accuracy because it does not make sense to allow the model to guess multiple times on character recognition - it's important to be correct on the first try. Regardless, accuracy is already so high top5 accuracy is likely 100% or close to it, so we are using top1 accuracy. 
 <br>
 <br>
-Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, such as VGG, ResNet, and DenseNet. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
+Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, such as VGG, ResNet, and DenseNet. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far fewer memory resources), while maintaining similar accuracy in this case. 
 <h5>Other FAQ</h5>
 Note that each of the fully-connected and convolutional layers had learned parameters (weights), but the softmax classifier did not (as it classified probabilities into decisions). 
 <br><br>
@@ -157,7 +157,7 @@ Our loss function for all models was cross entropy loss.
 <br><br>
 For the most part, it does not appear that models overfitted - the validation and train accuracies do not seem to diverge.
 <br><br>
-Hyperparameters tuned included number of layers, kernel size, padding/stride of convolutions. Our VGG model maintained the kernel size of 3 and padding of 1 for each of the convolutional layers, and maxpool kernel size of 2 and stride of 2. We added an average pool at the end of the feature extractor with a kernel size of 2 and stride of 1. We also removed the classification layer and instead added a fully-connected layer to reduce training time (dropout layers take much longer to train). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. The learning rate for each model in Adam was set to 0.001. 
+Hyperparameters tuned included number of layers, kernel size, padding/stride of convolutions. Our VGG model maintained the kernel size of 3 and padding of 1 for each of the convolutional layers, and maxpool kernel size of 2 and stride of 2. We added an average pool at the end of the feature extractor with a kernel size of 2 and stride of 1. We also removed the classification layer and instead added a fully-connected layer to reduce training time (it normally contains dropout layers, which take much longer to train). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. The learning rate for each model in Adam was set to 0.001. 
 <br><br>
 We used the PyTorch framework on the Google Cloud to conduct all our experiments. The instance had 16vCPUs with 104GB memory for our models. The GPU used was the nVidia Tesla P100.
 <br><br>
@@ -278,6 +278,10 @@ We experimented with both fully-trained and pre-trained networks. Since it was n
 <br>
 As above, running this same model for 5 additional epochs produced the accuracy score of 97.8%. It correctly classified 13506 out of 13800 characters in the test set. This approaches the goal set by the Alom et al. paper of 98%, and is likely roughly what a human could achieve. The Alom et al. paper, however, only achieves 97.6% accuracy using the VGG model. In this case, it appears our model has performed better. 
 <br><br>
+For instance, Mihir (who reads and writes Devanagari fluently) mis-classified just one of 46 characters (the following "jha") - which results in 97.8% accuracy. This is naturally a small sample but it highlights the difficulty even human experts have. 
+<br>
+<img src="images/examples/4434.png" width="4.8%"/>
+<br><br>
 
 <h3>Pre-Trained AlexNet (last layer tuned - 10 epochs) (97% accuracy)</h3>
 
@@ -308,7 +312,7 @@ We also tried using pre-trained networks. AlexNet was the most convenient to use
 
 
 <br>
-For our final model, we again used transfer learning with AlexNet. In this case, we completely re-initialized weights for the last two layers. We required the model to backprop weight updates over the last 5 classification layers. Again, note that we only used 10 epochs and managed to nearly equal the best accuracy of the Alom et al. of 98.3% by correctly predicting 13556 out of 13800 test examples for an accuracy score of 98.2%
+For our final model, we again used transfer learning with AlexNet. In this case, we completely re-initialized weights for the last two layers. We required the model to backprop weight updates over the last 5 classification layers. Again, note that we only used 10 epochs and managed to nearly equal the best accuracy of the Alom et al. of 98.3% by correctly predicting 13556 out of 13800 test examples for an accuracy score of 98.2%. We think the reason the pre-trained networks did so well is because they had the opportunity to train on additional training data (whatever AlexNet was trained on), which is an advantage over the DenseNet which has only been trained on the Devanagari character set, despite being fully-trained. Our pre-trained AlexNet trained on its training set, as well as training on the Devanagari data for an additional 10 epochs, which explains its stunning performance. 
 <br><br>
 
 
