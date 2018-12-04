@@ -17,16 +17,12 @@ from torch.optim import lr_scheduler
 import time
 import copy
 
-
-
 from cifar10 import CIFAR10
 
-# You should implement these (softmax.py, twolayernn.py, convnet.py)
-import models.softmax 
+import models.softmax
 import models.twolayernn
 import models.convnet
 import models.mymodel
-import models.SimpleNet
 import models.vgg
 import models.vgg19
 import models.vgg13
@@ -89,6 +85,48 @@ im_size = (3, 224, 224)
 #                  transforms.Normalize(cifar10_mean_color, cifar10_std_color),
 #             ])
 
+def create_model(model, num_classes):
+    """
+    Take the passed in model and prepare it for finetuning by following the
+    instructions.
+
+    Args:
+    - model: The model you need to prepare for finetuning. For the purposes of
+      this project, you will pass in AlexNet.
+    - num_classes: number of classes the model should output.
+
+    Returns:
+    - model: The model ready to be fine tuned.
+    """
+    # # Getting all layers from the input model's classifier.
+    new_classifier = list(model.classifier.children())
+    new_classifier = new_classifier[:-1]
+
+    fc = nn.Linear(4096, num_classes)
+
+    fc.weight.data.normal_(0, 1)
+    fc.weight.data.mul_(1e-2)
+    if fc.bias is not None:
+        # Initializing biases with zeros.
+        nn.init.constant_(fc.bias.data, 0)
+
+    new_classifier[-1] = fc
+
+    fc_prev = nn.Linear(4096, 4096)
+
+    fc_prev.weight.data.normal_(0, 1)
+    fc_prev.weight.data.mul_(1e-2)
+    if fc_prev.bias is not None:
+        # Initializing biases with zeros.
+        nn.init.constant_(fc_prev.bias.data, 0)
+
+    new_classifier[-2] = fc_prev
+
+    # Connecting all layers to form a new classifier.
+    model.classifier = nn.Sequential(*new_classifier)
+
+    return model
+
 def load_dataset(data_path):
     tforms = [torchvision.transforms.Resize(size=(224, 224)), torchvision.transforms.ToTensor()]
     tf = transforms.Compose(tforms)
@@ -114,11 +152,6 @@ dataloaders = {'train': train_loader,
 
 dataset_sizes = {'train': len(train_loader),
                'val': len(val_loader)}
-
-# dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
-#                                              shuffle=True, num_workers=4)
-#               for x in ['train', 'val']}
-# dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 
 # Datasets
 # train_dataset = CIFAR10(args.cifar10_dir, split='train', download=True,
@@ -150,7 +183,7 @@ elif args.model == 'mymodel':
     # model = models.vgg.vgg11('vgg11')
 elif args.model == 'SimpleNet':
     # model = models.SimpleNet.SimpleNet(n_classes, droprate=0.5, rgb=True)
-    model = models.SimpleNet.create_model(m.alexnet(pretrained=True), n_classes)
+    model = create_model(m.alexnet(pretrained=True), n_classes)
     #model = m.resnet18(pretrained=True)
     #num_ftrs = model.fc.in_features
     #model.fc = nn.Linear(num_ftrs, n_classes)
@@ -166,8 +199,6 @@ if args.cuda:
 # TODO: Initialize an optimizer from the torch.optim package using the
 # appropriate hyperparameters found in args. This only requires one line.
 #############################################################################
-
-# device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 # criterion = nn.CrossEntropyLoss()
@@ -196,10 +227,6 @@ if args.model == 'SimpleNet':
     optimizer = torch.optim.Adam(params=params_to_optimize, lr=args.lr) #, weight_decay=args.weight_decay, momentum=args.momentum)
 
 
-#############################################################################
-#                             END OF YOUR CODE                              #
-#############################################################################
-
 def train(epoch):
     '''
     Train the model for one epoch.
@@ -225,9 +252,7 @@ def train(epoch):
         loss.backward()
         optimizer.step()
 
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
+
         if batch_idx % args.log_interval == 0:
             val_loss, val_acc = evaluate('val', n_batches=4)
             train_loss = loss.data[0]
