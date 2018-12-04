@@ -33,11 +33,9 @@ We attempt to perform image classification on the Devanagari character set. For 
 <br><br>
 
 
-
-
 <!-- Main Illustrative Figure --> 
 <div style="text-align: center;">
-<img style="width: 400px;" alt="" src="project_webpage/images/cnn.png">
+<img style="width: 400px;" alt="" align="middle" src="project_webpage/images/cnn.png">
 </div>
 
 <br><br>
