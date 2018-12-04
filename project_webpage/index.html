@@ -133,8 +133,18 @@ We measured success by measuring how many of the test set images were correctly 
 <br>
 <br>
 Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, such as VGG, ResNet, and DenseNet. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
-
+<h5>Other FAQ</h5>
+Note that each of the fully-connected and convolutional layers had learned parameters (weights), but the softmax classifier did not (as it classified probabilities into decisions). 
 <br><br>
+Our loss function for all models was cross entropy loss
+<br><br>
+For the most part, it does not appear that models overfitted - the validation and train accuracies do not seem to diverge.
+<br><br>
+Hyperparameters including number of layers, kernel size, padding/stride of convolutions was mostly empirically-determined. We did not have enough time to run through many combinations. For our most successful models, we emulated the architecture of known models that worked well (VGG, AlexNet). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. 
+<br><br>
+We used the PyTorch framework. 
+<br><br>
+
 
 <!-- Main Results Figure --> 
 <!-- <div style="text-align: center;"> -->
