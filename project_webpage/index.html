@@ -110,19 +110,19 @@ We (and both of the aforementioned projects) acquired data from:  <a>https://arc
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-The goal of our project is to achieve comparable accuracy to the models used in the Alom et al. paper above, but using a simpler model and fewer training epochs. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train with. The paper above trains each model on 250 epochs to achieve a maximal accuracy of approximately 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. The best VGG-accuracy the paper achieves is 97.6%. 
-
+Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. 
 
 <br><br>
 <!-- Approach -->
 <h2>Approach</h2>
 <h4>What did you do exactly? How did you solve the problem? Why did you think it would be successful? Is anything new in your approach?</h4>
-We tried a variety of models, including a simple two-layer fully-connected net, a simple convolutional net, variants of VGG11 (using different input sizes and additional max-pooling layers), and several pre-trained AlexNets. Our approach was to first use simple models to make sure the data was formatted correctly and that our approach would work at all, as a sanity check, and then move on to more complex models. 
+The goal of our project is to achieve comparable accuracy to the models used in the Alom et al. paper above, but using a simpler model and fewer training epochs. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train with. The paper above trains each model on 250 epochs to achieve a maximal accuracy of approximately 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. The best VGG-accuracy the paper achieves is 97.6%. 
+<br><br>
+We tried a variety of models, including a simple two-layer fully-connected net, a simple convolutional net, variants of VGG11 (using different input sizes and additional max-pooling layers), and several pre-trained AlexNets. Our approach was to first use simple models to make sure the data was formatted correctly and that our approach would work at all, as a sanity check, and then move on to more complex models. The novelty of our approach is that we will use significantly fewer training epochs compared to the standard number of 250 in the Alom et al. paper - we expect this will relatively successful given the marginal rate of returns for each successful epoch (i.e. the loss and accuracy curves level off after a certain number of training epochs). 
 
 
 <h4>What problems did you anticipate? What problems did you encounter? Did the very first thing you tried work?</h4>
 One problem that we faced was having to change the input sizes to some of the pre-trained networks. VGG11, for instance, takes a 224x224x3 image as input, and our images are 32x32x3. It's possible to work around this problem by simply resizing the images for the pre-trained models. For fully-trained VGG11, however, it is not feasible to use 224x224x3 images since the memory usage is extremely high. For this reason, we created a VGG11-variant that accepted 32x32x3 input images and still achieved high accuracy. 
-
 
 <br><br>
 <!-- Results -->
