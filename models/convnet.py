@@ -16,9 +16,7 @@ class CNN(nn.Module):
             n_classes (int): Number of classes to score
         '''
         super(CNN, self).__init__()
-        #############################################################################
-        # TODO: Initialize anything you need for the forward pass
-        #############################################################################
+
 
         self.n_classes = n_classes
 
@@ -31,10 +29,6 @@ class CNN(nn.Module):
 
         self.kernel_size = kernel_size
 
-
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
 
     def forward(self, images):
         '''
@@ -53,9 +47,6 @@ class CNN(nn.Module):
             for each example and category.
         '''
         scores = None
-        #############################################################################
-        # TODO: Implement the forward pass. This should take few lines of code.
-        #############################################################################
 
         x = F.relu(self.conv1(images))
         x = self.pool(x)
@@ -65,8 +56,5 @@ class CNN(nn.Module):
         scores = self.linear1(x)
 
 
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
         return scores
 

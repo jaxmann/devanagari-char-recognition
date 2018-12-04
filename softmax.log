@@ -4,3 +4,4 @@ Softmax(
   )
 )
 Train Epoch: 1 [0/78200 (0%)]	Train Loss: 3.873207	Val Loss: 3.778763	Val Acc: 10
+Train Epoch: 1 [10000/78200 (13%)]	Train Loss: 1.665915	Val Loss: 1.709272	Val Acc: 54

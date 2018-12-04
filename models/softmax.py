@@ -15,9 +15,6 @@ class Softmax(nn.Module):
             n_classes (int): Number of classes to score
         '''
         super(Softmax, self).__init__()
-        #############################################################################
-        # TODO: Initialize anything you need for the forward pass
-        #############################################################################
 
         self.n_classes = n_classes
 
@@ -25,9 +22,6 @@ class Softmax(nn.Module):
             nn.Linear(im_size[0]*im_size[1]*im_size[2], n_classes)
         )
 
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
 
     def forward(self, images):
         '''
@@ -46,9 +40,6 @@ class Softmax(nn.Module):
             for each example and category.
         '''
         scores = None
-        #############################################################################
-        # TODO: Implement the forward pass. This should take very few lines of code.
-        #############################################################################
 
         N = images.size()[0]
         # scores = torch.zeros([N, self.n_classes])
@@ -56,7 +47,4 @@ class Softmax(nn.Module):
         vect = images.view(N, -1)
         scores = self.model(vect)
 
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
         return scores

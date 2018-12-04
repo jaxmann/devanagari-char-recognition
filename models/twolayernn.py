@@ -17,19 +17,12 @@ class TwoLayerNN(nn.Module):
             n_classes (int): Number of classes to score
         '''
         super(TwoLayerNN, self).__init__()
-        #############################################################################
-        # TODO: Initialize anything you need for the forward pass
-        #############################################################################
 
         self.model = nn.Sequential(
             nn.Linear(im_size[0] * im_size[1] * im_size[2], hidden_dim), #hidden
             nn.ReLU(),
             nn.Linear(hidden_dim, n_classes)
         )
-
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
 
     def forward(self, images):
         '''
@@ -48,17 +41,11 @@ class TwoLayerNN(nn.Module):
             for each example and category.
         '''
         scores = None
-        #############################################################################
-        # TODO: Implement the forward pass. This should take very few lines of code.
-        #############################################################################
 
         N = images.size()[0]
 
         vect = images.view(N, -1)
         scores = self.model(vect)
 
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
         return scores
 

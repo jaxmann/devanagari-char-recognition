@@ -16,11 +16,8 @@ class MyModel(nn.Module):
             n_classes (int): Number of classes to score
         '''
         super(MyModel, self).__init__()
-        #############################################################################
-        # TODO: Initialize anything you need for the forward pass
-        #############################################################################
 
-        # this is pretty much VGG11
+        # this is pretty much VGG11 with different input dimensions
         self.model = nn.Sequential(
 
             nn.Conv2d(3, 64, kernel_size=3, padding=1),
@@ -62,37 +59,6 @@ class MyModel(nn.Module):
 
         self.linear = nn.Linear(512, n_classes)
 
-        # self.n_classes = n_classes
-        #
-        # self.conv1 = nn.Conv2d(im_size[0], 64, kernel_size=kernel_size)
-        # self.bn1 = nn.BatchNorm2d(64)
-        # self.linear1 = nn.Linear(64*23*23, n_classes)
-        #
-        # self.pool1 = nn.MaxPool2d(4)
-        # self.pool2 = nn.MaxPool2d(3)
-        # # self.conv3 = nn.Conv2d(64, 128, kernel_size=kernel_size)
-        # # self.bn1 = nn.BatchNorm2d(hidden_dim)
-        # # self.bn2 = nn.BatchNorm2d(64)
-        #
-        # # self.height_width = (12 - (kernel_size -1) -1 + 1)
-        # self.hidden_size = 64 * (2) ** 2 # Channels x Height x Width
-        #
-        #
-        # self.h2 = (14 - (kernel_size -1) -1 + 1)
-        #
-        # # self.linear1 = nn.Linear(self.hidden_size, 1000)
-        # # self.linear2 = nn.Linear(1000, 100)
-        # # self.linear3 = nn.Linear(100, n_classes)
-        #
-        #
-        # self.kernel_size = kernel_size
-
-
-
-
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
 
     def forward(self, images):
         '''
@@ -111,45 +77,15 @@ class MyModel(nn.Module):
             for each example and category.
         '''
         scores = None
-        #############################################################################
-        # TODO: Implement the forward pass.
-        #############################################################################
 
         # x = self.pool1(images)
 
         out = self.model(images)
-        # print(out.shape)
+
         out = out.view(-1, 512)
-        # out = out.view(out.size(0), -1)
+
         scores = self.linear(out)
         return scores
 
-        # x = self.conv1(images)
-        # x = F.relu(self.bn1(x))
-        # # print(x.shape)
-        # x = F.avg_pool2d(x, 8, 1)
-        # # print(x.shape)
-        # x = x.view(-1, 64*23*23)
-        # scores = self.linear1(x)
-        # print(scores.shape)
-
-        # x = self.conv2(x)
-        # x = F.relu(self.bn2(x))
-        # x = self.pool1(x)
-        # x = self.pool2(x)
-        # # print(x.shape)
-        #
-        # # x = F.relu(self.conv2(x))
-        # x = x.view(-1,self.hidden_size)
-        # #
-        # x = self.linear1(x)
-        # x = self.linear2(x)
-        # scores = (self.linear3(x))
-
-
-
-        #############################################################################
-        #                             END OF YOUR CODE                              #
-        #############################################################################
         return scores
 

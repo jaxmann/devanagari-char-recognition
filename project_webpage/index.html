@@ -106,7 +106,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 <!-- Main Results Figure --> 
 <!-- <div style="text-align: center;"> -->
 
-<h3>FC with Softmax Classifier</h3>
+<h3>FC Layer with Softmax Classifier (70% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -124,7 +124,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 
 
 
-<h3>Two Layer FC</h3>
+<h3>Two Layer FC (46% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -143,7 +143,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 
 
 
-<h3>Single Conv Layer with 224x224x3 Input</h3>
+<h3>Single Conv Layer with 224x224x3 Input (80% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -155,7 +155,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 </table>
 
 
-<h3>Single Conv Layer with 32x32x3 Input</h3>
+<h3>Single Conv Layer with 32x32x3 Input (88% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -173,7 +173,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
  </div>
 
 
-<h3>Pre-Trained AlexNet (last layer tuned)</h3>
+<h3>Pre-Trained AlexNet (last layer tuned - 10 epochs) (97% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -186,7 +186,20 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 
 
 
-<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (10 epochs)</h3>
+<h3>Pre-Trained AlexNet (last two layers tuned - 10 epochs) (98.2% accuracy)</h3>
+
+<table border=1>
+<tr>
+<td>
+<img src="images/alex2_982_lossvstrain.png" width="49%"/>
+<img src="images/alex2_982_valaccuracy.png"  width="49%"/>
+</td>
+</tr>
+</table>
+
+
+
+<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (10 epochs) (97% accuracy)</h3>
 
 <table border=1>
 <tr>
@@ -205,7 +218,7 @@ Our goal was to match the performance of the deep learning paper that achieved 9
 
 
 
-<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (15 epochs)</h3>
+<h3>Fully-Trained VGG11 Variant with 32x32x3 Input (15 epochs) (97.8% accuracy)</h3>
 
 <table border=1>
 <tr>
