@@ -61,7 +61,9 @@ We attempt to perform image classification on the Devanagari character set. For 
 <h4>What did you try to do? What problem did you try to solve?</h4>
 Our project aimed to solve the problem of classifying Devanagari script. 
 <br><br>
-Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. Below are some examples of input used for this project. These are handwritten symbols from the training dataset used to train our model. Note that each of the following are different characters, although some of them appear quite similar - this is the problem that our model will attempt to resolve. Since these are handwritten characters, some amount of error can be attributed to sloppy or perhaps illegible writing - it might not be possible for even a human subject-matter expect to achieve 100% accuracy. 
+Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. Below are some examples of input used for this project. These are handwritten symbols from the training dataset used to train our model. Since these are handwritten characters, some amount of error can be attributed to sloppy or perhaps illegible writing - it might not be possible for even a human subject-matter expect to achieve 100% accuracy. 
+
+
 <br><br>
 
 <table border=1 style="border: 1px solid white; width:100%">
@@ -94,6 +96,16 @@ Devanagari is an Indic script used in India and Nepal, and our dataset contains 
 <br>
 Our training dataset contains 2000 examples of each character, for a total of 92,000 images. Each image consists of 32x32 pixels, and 3 color channels. The test set consists of 13800 total images (300 for each character) and the training set consists of 78200 images (1700 per character). This accounts for an 85/15 split. 
 
+<br><br>
+
+Even in typed Devanagari fonts, characters could easily be confused with each other. We shall use the Noto Sans Devanagari font to demonstrate this. Note that each of the following are different characters, although they apppear quite similar in groups of two - this is the problem that our model will attempt to resolve. Most notably, 'bha' and 'ma' in the Devanagari script are distinguished by a tiny little loop at the top left of the 'bh' character. This is complicated by the diacritics in Devanagari- dots placed to the right or to the bottom of the main character. Handwritten characters only serve to further increase the difficulty of classification.
+
+<br><br>
+
+
+<img style="width: 400px;" alt="" src="images/same.png">
+
+
 
 <h4>How is it done today, and what are the limits of current practice?</h4>
 Current attempts to classify Devanagari script are outlined here:
@@ -113,7 +125,7 @@ We (and both of the aforementioned projects) acquired data from:  <a>https://arc
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. 
+Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. This is especially relevant to ancient Sanskrit literature and historical manuscripts. Moreover, languages using Devanagari scripts are spoken by more than 500 million people in the world, making it one of the most popular scripts. An attempt to adapt state of the art techniques for Latin character recognition to Devanagari wil be especially useful to those people.
 
 <br><br>
 <!-- Approach -->
@@ -132,7 +144,7 @@ One problem that we faced was having to change the input sizes to some of the pr
 <h2>Experiments and Results</h2>
 <h4>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</h4>
 
-We measured success by measuring how many of the test set images were correctly categorized into their respective category bin out of all the categories. Random accuracy would be about 2.2% accuracy (1 out of 46). There were 13800 total images in the test set and our best model correctly categorized 13556 of them with its first guess. We chose not to use top5 accuracy because it does not make sense to allow to model to guess multiple times on character recognition - it's important to be correct on the first try. Regardless, accuracy is already so high top5 accuracy is likely 100% or close to it, so we are using top1 accuracy. 
+We measured success by measuring how many of the test set images were correctly categorized into their respective category bin out of all the categories. Random accuracy would be about 2.2% accuracy (1 out of 46). There were 13800 total images in the test set and our best model correctly categorized 13556 of them with its first guess. We chose not to use top5 accuracy because it does not make sense to allow the model to guess multiple times on character recognition - it's important to be correct on the first try. Regardless, accuracy is already so high top5 accuracy is likely 100% or close to it, so we are using top1 accuracy. 
 <br>
 <br>
 Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, such as VGG, ResNet, and DenseNet. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
