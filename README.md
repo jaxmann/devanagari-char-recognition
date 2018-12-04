@@ -1,6 +1,8 @@
 # CS7643 FINAL PROJECT
 
-Devanagari character classifciation
+Devanagari character classification
+
+This project aims to classify handwritten Devanagari script into the correct letter or digit category using a variety of Deep Learning models. 
 
 Bangla reference
 https://www.hindawi.com/journals/cin/2018/6747098/
