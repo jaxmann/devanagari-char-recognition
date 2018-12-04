@@ -103,14 +103,14 @@ This project uses an Extremely Randomized Decision Forest (but not deep learning
 
 <li><a>https://www.hindawi.com/journals/cin/2018/6747098/</a> (by Alom et al.)
 <br>
-This project compares VGG, ResNet, DenseNet, and others to achieve a maximal accuracy of 98% on the given data set. 
+This project compares VGG (97.6%), ResNet (97.3%), DenseNet (98.3%), and FractalNet (97.9%) over 250 epochs.
 
 </ul>
 We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
-The goal of our project is to achieve comparable accuracy to the models used in the Alom et al. paper above, but using a simpler model. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train on. The paper above trains each model on 250 epochs to achieve a best-accuracy of 98%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. 
+The goal of our project is to achieve comparable accuracy to the models used in the Alom et al. paper above, but using a simpler model. Ideally, simply tuning hyperparameters and intelligent design decisions will allow us to achieve high accuracy with a less complex model (or a pre-trained model) to reduce overall training time. Our approach could be useful to apply to character recognition tasks when there are limited resources to train on. The paper above trains each model on 250 epochs to achieve a best-accuracy of 99%. We will limit our maximum training epochs to 25, and see how competitive our accuracy will be. The best VGG accuracy the paper achieves is 97.6%. 
 
 
 <br><br>
@@ -132,7 +132,7 @@ One problem that we faced was having to change the input sizes to some of the pr
 We measured success by measuring how many of the test set images were correctly categorized into their respective bin out of all the bins. Random accuracy would be about 2.2% accuracy. There were 13800 total images in the test set and our best model correctly categorized 13506 of them with it's first guess. We chose not to use top5 accuracy because it does not make sense to allow to model to guess multiple times on character recognition - it's important to be correct on the first try. Regardless, accuracy is already so high top5 accuracy is likely 100% or close to it. 
 <br>
 <br>
-Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 98% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, notably ResNet, DenseNet, and others. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
+Our goal was to match the performance of the deep learning paper by Alom et al. that achieved 99% accuracy, but do so with a simpler model. We feel that we have achieved this goal. The  article by Rishi Anand listed above uses only Extremely Randomized Forests and achieves 92% accuracy, which is fairly easy to beat with pre-trained AlexNet (achieving 96% accuracy). The deep learning model in the Alom et al. paper above uses several models, notably ResNet, DenseNet, and others. These are all trained over at least 250 epochs. Our goal was to use at most a tenth the amount of epochs along with a simpler model to prove that in cases where compute resources are perhaps more limited, it is still feasible to train a deep net to perform a complex classification task. The key to our approach was to modify a variant of VGG11 to take smaller dimensional input rather than the default of 224x224x3 and instead use 32x32x3. This allows the model to train significantly faster (and use far less memory resources), while maintaining similar accuracy in this case. 
 
 <br><br>
 
@@ -250,7 +250,7 @@ We experimented with both fully-trained and pre-trained networks. Since it was n
 </table>
 
 <br>
-As above, running this same model for 5 additional epochs produced the accuracy score of 97.8%. It correctly classified 13506 out of 13800 characters in the test set. This approaches the goal set by the Alom et al. paper of 98%, and is likely roughly what a human could achieve. 
+As above, running this same model for 5 additional epochs produced the accuracy score of 97.8%. It correctly classified 13506 out of 13800 characters in the test set. This approaches the goal set by the Alom et al. paper of 98%, and is likely roughly what a human could achieve. The Alom et al. paper, however, only achieves 97.6% accuracy using the VGG model. In this case, it appears our model has performed better. 
 <br><br>
 
 <h3>Pre-Trained AlexNet (last layer tuned - 10 epochs) (97% accuracy)</h3>
@@ -282,7 +282,7 @@ We also tried using pre-trained networks. AlexNet was the most convenient to use
 
 
 <br>
-For our final model, we again used transfer learning with AlexNet. In this case, we completely re-initialized weights for the last two layers. We also forced the model to backprop weight updates over the last 5 classification layers. Again, note that we only used 10 epochs and managed to outperform the accuracy of the Alom et al. paper (or tie, depending on rounding) correctly predicting 13556 out of 13800 test examples. 
+For our final model, we again used transfer learning with AlexNet. In this case, we completely re-initialized weights for the last two layers. We also forced the model to backprop weight updates over the last 5 classification layers. Again, note that we only used 10 epochs and managed to outperform the accuracy of the Alom et al. paper (or tie, depending on rounding) correctly predicting 13556 out of 13800 test examples. This model also outperforms the Alom et al. paper implementations in categorizing all Devanagari characters in the test set (roughly tying their best model implementation, DenseNet). 
 <br><br>
 
 
