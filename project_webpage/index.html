@@ -104,7 +104,7 @@ Even in typed Devanagari fonts, characters could easily be confused with each ot
 
 
 <img style="width: 400px;" alt="" src="images/same.png">
-
+<br><br>
 
 
 <h4>How is it done today, and what are the limits of current practice?</h4>
@@ -151,11 +151,11 @@ Our goal was to match the performance of the deep learning paper by Alom et al. 
 <h5>Other FAQ</h5>
 Note that each of the fully-connected and convolutional layers had learned parameters (weights), but the softmax classifier did not (as it classified probabilities into decisions). 
 <br><br>
-Our loss function for all models was cross entropy loss
+Our loss function for all models was cross entropy loss. 
 <br><br>
 For the most part, it does not appear that models overfitted - the validation and train accuracies do not seem to diverge.
 <br><br>
-Hyperparameters including number of layers, kernel size, padding/stride of convolutions was mostly empirically-determined. We did not have enough time to run through many combinations. For our most successful models, we emulated the architecture of known models that worked well (VGG, AlexNet). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. 
+Hyperparameters tuned included number of layers, kernel size, padding/stride of convolutions. Our VGG model maintained the kernel size of 3 and padding of 1 for each of the convolutional layers, and maxpool kernel size of 2 and stride of 2. We added an average pool at the end of the feature extractor with a kernel size of 2 and stride of 1. We also removed the classification layer and instead added a fully-connected layer to reduce training time (dropout layers take much longer to train). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. 
 <br><br>
 We used the PyTorch framework. 
 <br><br>
@@ -231,13 +231,13 @@ The next-most complex model we created was a simple single-layer convolutional n
 </tr>
 </table>
 
-<div  style="width:35%">
+<!-- <div  style="width:35%">
 <img src="images/convnet32d.png" />
-<!-- <p style="font-size: 14px">Filter visualization for simple convolutional net with 32x32x3 input</p> -->
+<p style="font-size: 14px">Filter visualization for simple convolutional net with 32x32x3 input</p>
 
- </div>
-
- Using the default 32x32x3 images we used as data input, we achieved 88% accuracy using the extremely simple single-layer convolutional network. This nearly matches the Random Forest model used by the Rishi Anand article that applied a variety of optimizations. Our more complex networks should significantly outperform this accuracy threshold. The filters learned do not appear to be particularly meaningful to us.
+ </div> -->
+<br>
+ Using the default 32x32x3 images we used as data input, we achieved 88% accuracy using the extremely simple single-layer convolutional network. This nearly matches the Random Forest model used by the Rishi Anand article that applied a variety of optimizations. Our more complex networks should significantly outperform this accuracy threshold. 
  <br><br>
 
 
@@ -252,12 +252,12 @@ The next-most complex model we created was a simple single-layer convolutional n
 </tr>
 </table>
 
-<div style="width:35%">
+<!-- <div style="width:35%">
 <img src="images/vgg11_10ep_var.png" />
-<!-- <p style="font-size: 14px">Filter visualizations for variant of vgg11 with 32x32x3 input</p>
- -->
-</div>
+<p style="font-size: 14px">Filter visualizations for variant of vgg11 with 32x32x3 input</p>
 
+</div> -->
+<br>
 We experimented with both fully-trained and pre-trained networks. Since it was not feasible to train the normal VGG11 architecture from scratch on 224x224x3-resized images (the memory usage is enormous), we modified the network to accept 32x32x3 (but use mostly the same architecture, with an additional average pooling layer at the end, which was found empirically to work well). We also intentionally used a small number of epochs to train as the purpose of this project is to replicate the results from the Alom et al. paper using significantly less resouces. This achieved an accuracy score of 97%.  
 <br><br>
 
