@@ -8,17 +8,7 @@
 
 <!-- Le styles -->  
   <link href="css/bootstrap.css" rel="stylesheet">
-<style>
-body {
-padding-top: 60px; 
-}
-.vis {
-color: #3366CC;
-}
-.data {
-color: #FF9900;
-}
-</style>
+
   
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
