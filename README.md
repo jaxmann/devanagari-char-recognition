@@ -28,10 +28,6 @@
 <h2>Abstract</h2>
 
 We attempt to perform image classification on the Devanagari character set. For an input of handwritten Devanagari symbols, our model will output the category label (character name) of each character. We will use a variety of models, including a small fully-connected net with two layers, a simple convolutional net with one convlutional layer, and more complex models, as well as pretrained-models, and compare performance. The goal of this project is to achieve a similar accuracy to the papers outlined below while using simpler models and fewer training epochs. 
-<br><br>
-<!-- figure -->
-<br><br>
-
 
 <br><br>
 <!-- Introduction -->
