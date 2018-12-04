@@ -47,7 +47,7 @@ Our project aimed to solve the problem of classifying Devanagari script.
 Devanagari is an Indic script used in India and Nepal, and our dataset contains 36 characters and 10 digits. It is differentiable from many other written languages by the lack of capitalization and the horizontal bar aligned along the top of the script. Below are some examples of input used for this project. These are handwritten symbols from the training dataset used to train our model. Note that each of the following are different characters, although some of them appear quite similar - this is the problem that our model will attempt to resolve. Since these are handwritten characters, some amount of error can be attributed to sloppy or perhaps illegible writing - it might not be possible for even a human subject-matter expect to achieve 100% accuracy. 
 <br><br>
 
-<table border=1 style="border: 1px solid white; width:100%">
+<table border=0 style="width:100%">
 <tr>
 <td>
 <img src="project_webpage/images/examples/1340.png" width="4.8%"/>
