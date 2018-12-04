@@ -123,6 +123,8 @@ This project compares accuracy of VGG (97.6%), ResNet (97.3%), DenseNet (98.3%),
 </ul>
 We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
 
+The dataset itself consists of pre processsed images. These images were pre processed as follows: First, the images were resized to 28x28. Next, they were converted to grey scale. Then, the intensity was inverted- rather than black characters on a white background, the images had white characters on a black background. Finally, the images were padded by 2 pixels on all sides, which made the final size 32x32.
+
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
 Character recognition (for any language) is important to transcribe written text into digital representations. For many difficult-to-read handwritten instances of lettering, human intervention is required via methods such as Captcha, Gamification, or manual annotation. This process is often labor and cost-expensive. However, for many character sets, deep learning models can accurately transcribe handwritting to digital encoding. If our project is successful, it could be useful in digitizing literature in Devanagari script, or as a template to do so in a lightweight fashion, without requiring extensive GPU compute time to train models. This is especially relevant to ancient Sanskrit literature and historical manuscripts. Moreover, languages using Devanagari scripts are spoken by more than 500 million people in the world, making it one of the most popular scripts. An attempt to adapt state of the art techniques for Latin character recognition to Devanagari wil be especially useful to those people.
@@ -155,9 +157,9 @@ Our loss function for all models was cross entropy loss.
 <br><br>
 For the most part, it does not appear that models overfitted - the validation and train accuracies do not seem to diverge.
 <br><br>
-Hyperparameters tuned included number of layers, kernel size, padding/stride of convolutions. Our VGG model maintained the kernel size of 3 and padding of 1 for each of the convolutional layers, and maxpool kernel size of 2 and stride of 2. We added an average pool at the end of the feature extractor with a kernel size of 2 and stride of 1. We also removed the classification layer and instead added a fully-connected layer to reduce training time (dropout layers take much longer to train). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. 
+Hyperparameters tuned included number of layers, kernel size, padding/stride of convolutions. Our VGG model maintained the kernel size of 3 and padding of 1 for each of the convolutional layers, and maxpool kernel size of 2 and stride of 2. We added an average pool at the end of the feature extractor with a kernel size of 2 and stride of 1. We also removed the classification layer and instead added a fully-connected layer to reduce training time (dropout layers take much longer to train). We used the Adam optimizer throughout, as it had performed better than SGD on our sanity-check models. The learning rate for each model in Adam was set to 0.001. 
 <br><br>
-We used the PyTorch framework. 
+We used the PyTorch framework on the Google Cloud to conduct all our experiments. The instance had 16vCPUs with 104GB memory for our models. The GPU used was the nVidia Tesla P100.
 <br><br>
 
 
