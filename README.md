@@ -38,8 +38,8 @@ Devanagari is an Indic script used in India and Nepal, and our dataset contains 
 <br><br>
 
 <table border=0 style="width:100%">
-<tr>
-<td>
+<tr border=0>
+<td border=0>
 <img src="project_webpage/images/examples/1340.png" width="4.8%"/>
 <img src="project_webpage/images/examples/2771.png" width="4.8%"/>
 <img src="project_webpage/images/examples/3710.png" width="4.8%"/>
