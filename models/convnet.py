@@ -55,6 +55,5 @@ class CNN(nn.Module):
 
         scores = self.linear1(x)
 
-
         return scores
 
