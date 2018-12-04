@@ -81,18 +81,14 @@ Our training dataset contains 2000 examples of each character, for a total of 92
 <h4>How is it done today, and what are the limits of current practice?</h4>
 Current attempts to classify Devanagari script are outlined here:
 
-<ul>
 
-<li><a>https://towardsdatascience.com/devanagari-script-character-recognition-using-machine-learning-6006b40fa6a9</a> (by Rishi Anand)
-<br>
+ - [https://towardsdatascience.com/devanagari-script-character-recognition-using-machine-learning-6006b40fa6a9](https://towardsdatascience.com/devanagari-script-character-recognition-using-machine-learning-6006b40fa6a9) (by Rishi Anand)
 This project uses an Extremely Randomized Decision Forest (but not deep learning) to classify handwritten Devanagari script. It achieves a maximum accuracy score of 92%. 
 
-<li><a>https://www.hindawi.com/journals/cin/2018/6747098/</a> (by Alom et al.)
-<br>
+ - [https://www.hindawi.com/journals/cin/2018/6747098/](https://www.hindawi.com/journals/cin/2018/6747098/) (by Alom et al.)
 This project compares accuracy of VGG (97.6%), ResNet (97.3%), DenseNet (98.3%), and FractalNet (97.9%) over 250 epochs and across a variety of output groupings (i.e. digit-only, vowel-only, and all-character). 
 
-</ul>
-We (and both of the aforementioned projects) acquired data from:  <a>https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset</a>.
+We (and both of the aforementioned projects) acquired data from:  [https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset](https://archive.ics.uci.edu/ml/datasets/Devanagari+Handwritten+Character+Dataset)
 
 
 <h4>Who cares? If you are successful, what difference will it make?</h4>
